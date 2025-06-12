@@ -6,11 +6,12 @@
     <title>Number Guess</title>
 </head>
 <body>
-    <div class="content">
+    <form class="content">
         <!-- HEADING -->
         <h2>Guess The Number</h2>
         <h4>Enter Any Number Between 1 to 100</h4>
         <h5>You have <span id="attempts"></span> attepmt to guess the right number</h5>
+        <h5 id="guess1">Entered number is <span id="guess"></span> than the random number</h5>
         <!-- INPUT OF NUMBER -->
         <label for="number">Enter Your Number</label>
         <input id="number" name="number" type="text" class="btn"><br>
@@ -20,7 +21,7 @@
         <p>Previous Guesses <span id="previous"></span></p>
         <!-- TO PRINT THE RESULT -->
         <p id="result"></p>
-    </div>
+    </form>
 </body>
 <style>
     body{
@@ -49,6 +50,9 @@
         width: 43%;
         font-size: larger;
     }
+    #guess1{
+        display: none;
+    }
 </style>
 <script>
     var random=Math.floor(Math.random() *100 +1);//GENERATING A RANDOM NUMBER
@@ -56,10 +60,6 @@
     var i=0;//TO PRINT THE GUESSED NUMBER 
     var attemps=10-i;
     document.getElementById("attempts").innerText=attemps;
-
-    function reset(){
-
-    }
 
 
     function guessNum(){
@@ -88,6 +88,15 @@
                 i++;//TO PRINT GUESSED NUMBER
                 var attemps=10-i;
                 document.getElementById("attempts").innerText=attemps;
+
+                if(num>random){
+                    document.getElementById('guess').innerHTML="higher";
+                    document.getElementById('guess1').style.display="block";
+                }
+                if(num<random){
+                    document.getElementById('guess').innerHTML="lower";
+                    document.getElementById('guess1').style.display="block";
+                }
             }
         }
         //IF YOU EXHAUSED YOUR LIVES
