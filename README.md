@@ -3,7 +3,7 @@
 A fun and interactive browser-based game where users try to guess a randomly generated number between 1 and 100 in 10 attempts or fewer. Built using **HTML**, **CSS**, and **vanilla JavaScript** to practice core frontend development concepts.
 
 ## 🚀 Live Demo  
-🔗 [Play the Game]([https://v0-guess-it.vercel.app](url))
+🔗 [Play the Game][https://v0-guess-it.vercel.app](https://v0-guess-it.vercel.app)
 
 ---
 
