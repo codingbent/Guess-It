@@ -2,40 +2,37 @@
 
 A fun and interactive browser-based game where users try to guess a randomly generated number between 1 and 100 in 10 attempts or fewer. Built using **HTML**, **CSS**, and **vanilla JavaScript** to practice core frontend development concepts.
 
-## 🚀 Live Demo
-🔗 [Play the Game Here]([(https://v0-guess-it.vercel.app/)]([url](https://v0-guess-it.vercel.app/)))
+## 🚀 Live Demo  
+🔗 [Play the Game]([https://v0-guess-it.vercel.app](url))
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **HTML5** – for structuring the layout
-- **CSS3** – for styling and responsive design
-- **JavaScript (Vanilla)** – for game logic, DOM manipulation, and event handling
+- **HTML5** – for structuring the layout  
+- **CSS3** – for styling and responsive design  
+- **JavaScript (Vanilla)** – for game logic, DOM manipulation, and event handling  
 
 ---
 
 ## 🎮 How to Play
 
-1. Enter a number between 1 and 100.
-2. Click **Submit Guess**.
-3. The game will tell you if your guess is too high or too low.
-4. You have 10 attempts to guess the correct number.
-5. After 10 failed attempts or a correct guess, the input is disabled.
+1. Enter a number between 1 and 100.  
+2. Click **Submit Guess**.  
+3. You’ll get hints whether your guess is too high or too low.  
+4. You have 10 attempts to guess the correct number.  
+5. Game ends if you guess it right or run out of attempts.
 
 ---
 
 ## ✨ Features
 
-- Random number generation
-- Input validation and user alerts
-- Real-time hints (Higher/Lower)
-- Tracks previous guesses
-- Remaining attempt counter
-- Game result messages (Win/Lose)
-- Clean, responsive UI with modular layout
+- Random number generation  
+- Input validation with alerts for invalid entries  
+- Real-time hints (Higher/Lower)  
+- Previous guesses display  
+- Remaining attempt counter  
+- Win/loss result message  
+- Clean, responsive UI  
 
 ---
-
-## 📁 Project Structure
-
