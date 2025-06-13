@@ -22,6 +22,7 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       width: 90%;
       max-width: 400px;
+      text-align: center;
     }
 
     h2 {
@@ -55,7 +56,6 @@
 
     button {
       margin-top: 1rem;
-      width: 100%;
       padding: 0.75rem;
       background-color: #0984e3;
       color: white;
@@ -69,15 +69,27 @@
       background-color: #74b9ff;
     }
 
-    p {
-      margin: 0.8rem 0;
-      color: #333;
+    .hidden {
+      display: none;
     }
 
     #result {
       font-weight: bold;
       color: #2d3436;
       margin-top: 1rem;
+    }
+
+    #play-again {
+      margin-top: 1rem;
+      background-color: #2ecc71;
+    }
+
+    #play-again:hover {
+      background-color: #55efc4;
+    }
+
+    p {
+      margin: 0.8rem 0;
     }
   </style>
 </head>
@@ -86,7 +98,7 @@
   <form class="card">
     <h2>🎯 Guess The Number</h2>
     <h4>Enter a number between 1 and 100</h4>
-    <h5>You have <span id="attempts"></span> attempts to guess</h5>
+    <h5>You have <span id="attempts">10</span> attempts to guess</h5>
     <h5 id="guess1">Entered number is <span id="guess"></span> than the correct one</h5>
 
     <label for="number">Your Guess</label>
@@ -96,20 +108,23 @@
 
     <p>Previous Guesses: <span id="previous"></span></p>
     <p id="result"></p>
+
+    <!-- Play Again Button -->
+    <button id="play-again" class="hidden" onclick="resetGame()" type="button">🔁 Play Again</button>
   </form>
 
   <!-- Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
-    var random = Math.floor(Math.random() * 100 + 1);
-    var nums = [];
-    var i = 0;
-    document.getElementById("attempts").innerText = 10;
+    let random = Math.floor(Math.random() * 100 + 1);
+    let nums = [];
+    let i = 0;
 
     function guessNum() {
       if (nums.length < 10) {
-        var num = parseInt(document.getElementById("number").value);
+        const num = parseInt(document.getElementById("number").value);
+
         if (num > 100 || num < 1) {
           alert('Enter a number from 1 to 100');
         } else if (isNaN(num)) {
@@ -118,8 +133,8 @@
           if (num === random) {
             document.getElementById("result").innerHTML =
               "✅ You guessed the right number in " + (nums.length + 1) + " attempts. Congratulations!";
-            confetti(); // 🎉 trigger confetti
-            disable();
+            confetti();
+            disableGame();
           } else {
             nums.push(num);
             document.getElementById('previous').innerHTML = nums.join(', ');
@@ -131,15 +146,19 @@
           }
         }
       } else {
-        alert('You have entered 10 numbers');
         document.getElementById("result").innerHTML =
           "❌ You couldn’t guess the number. It was " + random;
-        disable();
+        disableGame();
       }
     }
 
-    function disable() {
-      document.querySelector("button").disabled = true;
+    function disableGame() {
+      document.querySelector("button[type='button']").disabled = true;
+      document.getElementById("play-again").classList.remove("hidden");
+    }
+
+    function resetGame() {
+      location.reload();
     }
   </script>
 </body>
