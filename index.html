@@ -131,46 +131,44 @@
             let i = 0;
 
             function guessNum() {
-                if (nums.length < 10) {
-                    const num = parseInt(
-                        document.getElementById("number").value
-                    );
-
-                    if (num > 100 || num < 1) {
-                        alert("Enter a number from 1 to 100");
-                    } else if (isNaN(num)) {
-                        alert("Not a Number. Please enter a valid number");
-                    } else {
-                        if (num === random) {
-                            document.getElementById("result").innerHTML =
-                                "✅ You guessed the right number in " +
-                                (nums.length + 1) +
-                                " attempts. Congratulations!";
-                            confetti();
-                            disableGame();
-                        } else {
-                            nums.push(num);
-                            document.getElementById("previous").innerHTML =
-                                nums.join(", ");
-                            i++;
-                            document.getElementById("attempts").innerText =
-                                10 - i;
-
-                            document.getElementById("guess").innerHTML =
-                                num > random ? "higher" : "lower";
-                            document.getElementById("guess1").style.display =
-                                "block";
-                        }
-                    }
-                } else {
+                if (i >= maxAttempts) {
                     document.getElementById("result").innerHTML =
                         "❌ You couldn’t guess the number. It was " + random;
                     disableGame();
+                    return;
                 }
+
+                const num = parseInt(document.getElementById("number").value);
+
+                if (isNaN(num) || num < 1 || num > 100) {
+                    alert("Enter a valid number between 1 and 100");
+                    return;
+                }
+
+                i++;
+                document.getElementById("attempts").innerText = maxAttempts - i;
+
+                if (num === random) {
+                    document.getElementById(
+                        "result"
+                    ).innerHTML = `✅ You guessed it in ${i} attempts!`;
+                    confetti();
+                    disableGame();
+                    return;
+                }
+
+                nums.push(num);
+                document.getElementById("previous").innerText = nums.join(", ");
+
+                document.getElementById("guess").innerText =
+                    num > random ? "higher" : "lower";
+                document.getElementById("guess1").style.display = "block";
             }
 
             function disableGame() {
-                document.querySelector("button[type='button']").disabled = true;
+                document.querySelector(
+                    "button:not(#play-again)"
+                ).disabled = true;
                 document
                     .getElementById("play-again")
                     .classList.remove("hidden");
