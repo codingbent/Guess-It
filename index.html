@@ -1,122 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Guess</title>
-    <script type="module">
-        import { inject } from 'https://cdn.vercel-insights.com/v1/inject.js';
-        inject();
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Number Guess</title>
+        <script type="module">
+            import { inject } from "https://cdn.vercel-insights.com/v1/inject.js";
+            inject();
+        </script>
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306204505953779"
+            crossorigin="anonymous"
+        ></script>
+        <style>
+            body {
+                background-color: rgb(179, 179, 179);
+            }
+            .content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid black;
+                padding: 2%;
+                background-color: rgb(255, 255, 255);
+                width: 35%;
+            }
+            h5,
+            h4,
+            h2,
+            label,
+            input,
+            p {
+                margin: 1%;
+                padding: 3%;
+            }
+            h5 {
+                color: red;
+            }
+            button {
+                margin-top: 4%;
+                margin-left: 3%;
+                width: 43%;
+                font-size: larger;
+            }
+            #guess1 {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form class="content">
+            <!-- HEADING -->
+            <h2>Guess The Number</h2>
+            <h4>Enter Any Number Between 1 to 100</h4>
+            <h5>
+                You have <span id="attempts"></span> attepmt to guess the right
+                number
+            </h5>
+            <h5 id="guess1">
+                Entered number is <span id="guess"></span> than the random
+                number
+            </h5>
+            <!-- INPUT OF NUMBER -->
+            <label for="number">Enter Your Number</label>
+            <input id="number" name="number" type="text" class="btn" /><br />
+            <!-- TO CHECK THE NUMBER -->
+            <button onclick="guessNum()" type="button" class="btn">
+                Submit Guess
+            </button>
+            <!-- TO PRINT ALL PREVIOUS NUMBER -->
+            <p>Previous Guesses <span id="previous"></span></p>
+            <!-- TO PRINT THE RESULT -->
+            <p id="result"></p>
+        </form>
+    </body>
+    <script>
+        var random = Math.floor(Math.random() * 100 + 1); //GENERATING A RANDOM NUMBER
+        var nums = []; //TO STORE ALL GUESSSED NUMBER
+        var i = 0; //TO PRINT THE GUESSED NUMBER
+        var attemps = 10 - i;
+        document.getElementById("attempts").innerText = attemps;
+
+        function guessNum() {
+            if (nums.length <= 9) {
+                console.log("lenght" + nums.length);
+                var num = parseInt(document.getElementById("number").value); //CONVERTING THE STRING TO INTEGER
+                if (num > 100 || num < 1) {
+                    alert("Enter a number from 1 to 100 ");
+                } else if (isNaN(num)) {
+                    alert("Not a Number. Please enter a valid number");
+                } else {
+                    //IF NUMBER ENTERED IS SAME AS RANDOM NUMBER
+                    if (num === random) {
+                        document.getElementById("result").innerHTML =
+                            "you guessed the right number  in " +
+                            (nums.length + 1) +
+                            " attepmt, congratulations";
+                    } else {
+                        //TO PUSH THE NUMBER IN ARRAY
+                        nums.push(num);
+                    }
+                    //TO PRINT ALL THE NUMBERS ENTERED BY USER
+                    for (k = i; k < nums.length; k++) {
+                        document.getElementById("previous").innerHTML +=
+                            nums[k] + ",";
+                    }
+                    i++; //TO PRINT GUESSED NUMBER
+                    var attemps = 10 - i;
+                    document.getElementById("attempts").innerText = attemps;
+
+                    if (num > random) {
+                        document.getElementById("guess").innerHTML = "higher";
+                        document.getElementById("guess1").style.display =
+                            "block";
+                    }
+                    if (num < random) {
+                        document.getElementById("guess").innerHTML = "lower";
+                        document.getElementById("guess1").style.display =
+                            "block";
+                    }
+                }
+            }
+            //IF YOU EXHAUSED YOUR LIVES
+            else {
+                alert("You have entered 10 numbers");
+                document.getElementById("result").innerHTML =
+                    "You were not able to guess the right number sorry.The number was " +
+                    random;
+                disable();
+            }
+        }
+        //TO DISABLE SUBMIT BUTTON AFTER 10 ATTEMPTS
+        function disable() {
+            var btn = document.querySelector(".btn");
+            btn.disabled = true;
+        }
     </script>
-
-</head>
-<body>
-    <form class="content">
-        <!-- HEADING -->
-        <h2>Guess The Number</h2>
-        <h4>Enter Any Number Between 1 to 100</h4>
-        <h5>You have <span id="attempts"></span> attepmt to guess the right number</h5>
-        <h5 id="guess1">Entered number is <span id="guess"></span> than the random number</h5>
-        <!-- INPUT OF NUMBER -->
-        <label for="number">Enter Your Number</label>
-        <input id="number" name="number" type="text" class="btn"><br>
-        <!-- TO CHECK THE NUMBER -->
-        <button onclick="guessNum()" type="button" class="btn">Submit Guess</button>
-        <!-- TO PRINT ALL PREVIOUS NUMBER -->
-        <p>Previous Guesses <span id="previous"></span></p>
-        <!-- TO PRINT THE RESULT -->
-        <p id="result"></p>
-    </form>
-</body>
-<style>
-    body{
-        background-color: rgb(179, 179, 179);
-    }
-    .content{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        border: 1px solid black;
-        padding: 2%;
-        background-color: rgb(255, 255, 255);
-        width: 35%;
-    }
-    h5,h4,h2,label,input,p{
-        margin: 1%;
-        padding: 3%;
-    }
-    h5{
-        color: red;
-    }
-    button{
-        margin-top: 4%;
-        margin-left: 3%;
-        width: 43%;
-        font-size: larger;
-    }
-    #guess1{
-        display: none;
-    }
-</style>
-<script>
-    var random=Math.floor(Math.random() *100 +1);//GENERATING A RANDOM NUMBER
-    var nums=[];//TO STORE ALL GUESSSED NUMBER
-    var i=0;//TO PRINT THE GUESSED NUMBER 
-    var attemps=10-i;
-    document.getElementById("attempts").innerText=attemps;
-
-
-    function guessNum(){
-        if(nums.length<=9){
-            console.log("lenght"+nums.length);
-            var num=parseInt(document.getElementById("number").value);//CONVERTING THE STRING TO INTEGER
-            if(num>100 || num<1){
-                alert('Enter a number from 1 to 100 ')
-            }
-            else if(isNaN(num)){
-                alert("Not a Number. Please enter a valid number")
-            }
-            else{
-                //IF NUMBER ENTERED IS SAME AS RANDOM NUMBER
-                if(num===random){
-                    document.getElementById("result").innerHTML="you guessed the right number  in "+(nums.length+1)+" attepmt, congratulations";
-                }
-                else{
-                    //TO PUSH THE NUMBER IN ARRAY
-                    nums.push(num);
-                }
-                //TO PRINT ALL THE NUMBERS ENTERED BY USER
-                for(k=i;k<nums.length;k++){
-                    document.getElementById('previous').innerHTML+=nums[k]+',';
-                }
-                i++;//TO PRINT GUESSED NUMBER
-                var attemps=10-i;
-                document.getElementById("attempts").innerText=attemps;
-
-                if(num>random){
-                    document.getElementById('guess').innerHTML="higher";
-                    document.getElementById('guess1').style.display="block";
-                }
-                if(num<random){
-                    document.getElementById('guess').innerHTML="lower";
-                    document.getElementById('guess1').style.display="block";
-                }
-            }
-        }
-        //IF YOU EXHAUSED YOUR LIVES
-        else{
-            alert('You have entered 10 numbers');
-            document.getElementById("result").innerHTML="You were not able to guess the right number sorry.The number was "+random;
-            disable();
-        }
-    }
-    //TO DISABLE SUBMIT BUTTON AFTER 10 ATTEMPTS
-    function disable(){
-        var btn =document.querySelector('.btn');
-        btn.disabled=true;
-    }
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306204505953779"
-     crossorigin="anonymous"></script>
 </html>
